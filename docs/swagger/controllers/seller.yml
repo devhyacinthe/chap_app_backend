@@ -1,0 +1,169 @@
+server:
+  servlet:
+    encoding:
+      force-response: true
+      charset: UTF-8
+
+
+paths:
+  /api/v1/seller/auth/register:
+    post:
+      tags:
+        - Seller
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                  required: true
+                lastName:
+                  type: string
+                  required: true
+                phoneNumber:
+                  type: string
+                  required: true
+                password:
+                  type: string
+                  required: true
+      produces:
+        - application/json
+      responses:
+          '201':
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Seller'
+
+
+  #--------------------LOGIN------------------------------
+  /api/v1/seller/auth/login:
+    post:
+      tags:
+        - Seller
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phoneNumber:
+                  type: string
+                  required: true
+                password:
+                  type: string
+                  required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Seller'
+
+
+  #-----------------LOGOUT------------------------------
+  /api/v1/seller/auth/logout:
+    get:
+      tags:
+        - Seller
+
+      produces:
+        - application/json
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+
+  #-----------------SELLER PROFILE--------------------
+  /api/v1/seller/profile/{phoneNumber}:
+    get:
+      tags:
+        - Seller
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: phoneNumber
+          schema:
+            type: string
+          required: true
+
+      produces:
+        - application/json
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Seller'
+
+
+
+    #-------------UPDATE SELLER PROFILE-----------
+  /api/v1/seller/{phoneNumber}:
+    put:
+      tags:
+        - Seller
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: phoneNumber
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                phoneNumber:
+                  type: string
+                password:
+                  type: string
+                email:
+                  type: string
+                sex:
+                  type: string
+                rating:
+                  type: number
+                birthday:
+                  type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+
+
+#----------BEARER TOKEN----------------
+components:
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+

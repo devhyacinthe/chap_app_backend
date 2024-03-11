@@ -1,0 +1,38 @@
+components:
+  schemas:
+    Seller:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+          example: Hyacinthe
+        lastName:
+          type: string
+          example: d'ALMEIDA
+        email:
+          type: string
+          example: yacinthe@gmail.com
+        sex:
+          type: string
+          example: Masculin
+        phoneNumber:
+          type: string
+          example: +22812345678
+        password:
+          type: string
+        rating:
+          type: number
+          example: 0
+        birthday:
+          type: string
+          example: 1970-07-01:00-00-00
+        updatedAt:
+          type: string
+          example: 1970-07-01:00-00-00
+        createdAt:
+          type: timestamp
+          example: 1970-07-01:00-00-00
+
+
