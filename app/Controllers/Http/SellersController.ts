@@ -34,7 +34,7 @@ export default class SellersController {
 
   public async logout({ auth, response }: HttpContextContract) {
     try {
-      await auth.logout()
+      await auth.use('api').logout()
       return response.status(200).json({ message: 'User have been logged out!' })
     } catch (error) {
       response.unauthorized('Failed logout')
