@@ -10,7 +10,6 @@ export default class SellersController {
     try {
       const payload = await request.validate(CreateSellerValidator)
       const exist = await Seller.findBy('phone_number', payload.phoneNumber)
-      console.log(exist)
       if (!exist) {
         const seller = await Seller.create(payload)
         await seller.save()
@@ -26,7 +25,9 @@ export default class SellersController {
   public async login({ auth, request, response }: HttpContextContract) {
     try {
       const { phoneNumber, password } = await request.validate(LoginSellerValidator)
-      return await auth.use('api').attempt(phoneNumber, password)
+      return await auth.use('api').attempt(phoneNumber, password, {
+        expiresIn: '31 days'
+      })
     } catch (error) {
       response.json(error)
     }
@@ -44,7 +45,7 @@ export default class SellersController {
   public async sellerProfile({ response, params }: HttpContextContract) {
     try {
       const seller = await Seller.findByOrFail('phone_number', params.phoneNumber)
-      return seller
+      return response.json({seller})
     } catch (error) {
       response.json(error)
     }

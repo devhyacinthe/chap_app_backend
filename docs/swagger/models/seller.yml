@@ -19,7 +19,7 @@ components:
           example: Masculin
         phoneNumber:
           type: string
-          example: +22812345678
+          example: 12345678
         password:
           type: string
         rating:

@@ -1,0 +1,35 @@
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          example: Coktail
+        imageUrl:
+          type: string
+        unitPrice:
+          type: number
+          example: 6140
+        discount:
+          type: number
+          example: 50
+        stock:
+          type: number
+          example: 100
+        lockerId:
+          type: string
+        categoryId:
+          type: string
+        articles:
+          type: list
+        updatedAt:
+          type: string
+          example: 1970-07-01:00-00-00
+        createdAt:
+          type: timestamp
+          example: 1970-07-01:00-00-00
+
+

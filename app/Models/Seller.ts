@@ -1,6 +1,10 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { column, beforeSave, BaseModel } from '@ioc:Adonis/Lucid/Orm'
+import { column, beforeSave, BaseModel, hasMany, HasMany, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
+import Address from './Address'
+import Customer from './Customer'
+import Invoice from './Invoice'
+
 
 
 
@@ -18,19 +22,32 @@ export default class Seller extends BaseModel {
   public phoneNumber: string
 
   @column()
-  public email: string
+  public email: string | null
 
   @column()
-  public sex: string
+  public sex: string | null
 
   @column()
-  public birthday: string
+  public birthday: string | null
 
   @column()
-  public rating: number
+  public rating: number | null
 
   @column({ serializeAs: null })
   public password: string
+
+
+  @manyToMany(() => Customer)
+  public customers: ManyToMany<typeof Customer>
+
+
+  @hasMany(() => Address)
+  public addresses: HasMany<typeof Address>
+
+
+  @hasMany(() => Invoice)
+  public invoices: HasMany<typeof Invoice>
+
 
   @column()
   public rememberMeToken: string | null
